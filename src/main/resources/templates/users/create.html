@@ -1,0 +1,135 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Registro de Usuarios</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="theme-color" content="#7952b3">
+
+
+    <style>
+    
+	    .forms{
+        margin: 1% 15%;
+      }
+
+      .form__button{
+        display: flex;
+        justify-content: center;
+        align-items: end;
+      }
+
+    
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.0/examples/offcanvas-navbar/offcanvas.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a  class="navbar-brand">Mantenimiento de Usuarios</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation"  >
+      <span  class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/}">users</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto link-light">
+        <li class="nav-item" >
+            <a  class="nav-link">Login</a>
+        </li>
+        <li class="nav-item" >
+            <a  class="nav-link">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="forms">
+  <h3>Create User</h3>
+   <form th:action="@{/users/store}" th:object="${user}" method="POST">
+       <div class="row">
+           <div class="col">
+                 <label class="form-label">Código</label>
+                 <input type="text" class="form-control" th:field="*{usr}"/>
+           </div>
+           <div class="col">
+                 <label class="form-label">Nombres</label>
+                 <input type="text" class="form-control" th:field="*{nam}"/>
+           </div>
+           <div class="col">
+            <label class="form-label">País</label>
+            <input type="text" class="form-control" th:field="*{idt}"/>
+          </div>
+           <div class="col">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="text" class="form-control" th:field="*{pem}"/>
+          </div>
+       </div>
+       <div class="row">
+           <div class="col">
+
+             <label class="form-label">Identificacíon</label>
+             <input type="text" class="form-control" th:field="*{idi}"/>
+           </div>
+           <div class="col">
+             <label class="form-label">País de Identificacón</label>
+             <input type="text" class="form-control" th:field="*{ctr}"/>
+           </div>
+           <div class="col">
+
+             <label class="form-label">Nivel de Seguridad</label>
+             <input type="text" class="form-control" th:field="*{scl}"/>
+           </div>
+           <div class="col">
+
+             <label class="form-label">Ten</label>
+             <input type="text" class="form-control" th:field="*{ten}"/>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col">
+             <label class="form-label">Ent</label>
+             <input type="text" class="form-control"  th:field="*{ent}"/>
+           </div>
+           <div class="col-9  form__button">
+             <button type='submit' class='btn btn-primary'>Store</button> 
+           </div>
+             
+       </div>
+   </form>
+</div>
+
+
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
