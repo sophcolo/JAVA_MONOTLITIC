@@ -80,7 +80,8 @@
 </nav>
 <div class="forms">
   <h3>Nuevo Dispositivo</h3>
-   <form th:action="@{/users/store}" th:object="${device}" method="POST">
+   <form th:action="@{/devices/store}" th:object="${device}" method="POST">
+        <input type="hidden" th:field="*{usuario_ingresa}">
        <div class="row">
            <div class="col">
                  <label class="form-label">Código Dispositivo</label>

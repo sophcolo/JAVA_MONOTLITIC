@@ -22,8 +22,7 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 
 	@Override
 	public DeviceCatalog getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return deviceCatalogRepository.findById(id).get();
 	}
 
 	@Override
@@ -33,14 +32,25 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 
 	@Override
 	public DeviceCatalog udpate(String code, DeviceCatalog dc) {
-		// TODO Auto-generated method stub
-		return null;
+		DeviceCatalog dc_exists = deviceCatalogRepository.findById(code).get();
+		dc_exists.setAgente(dc.getAgente());
+		dc_exists.setIdentificador(dc.getIdentificador());
+		dc_exists.setNumero_telefono(dc.getNumero_telefono());
+		dc_exists.setOperador_telefonico(dc.getOperador_telefonico());
+		dc_exists.setSistema_operativo(dc.getSistema_operativo());
+		dc_exists.setVersion_sistema(dc.getVersion_sistema());
+		dc_exists.setModelo_dispositivo(dc.getModelo_dispositivo());
+		dc_exists.setEstado_dispositivo(dc.getEstado_dispositivo());
+		dc_exists.setNumero_imei(dc.getNumero_imei());
+		dc_exists.setDireccion_wifi(dc.getDireccion_wifi());
+		dc_exists.setDireccion_bluetooth(dc.getDireccion_bluetooth());
+		dc_exists.setNumero_serie(dc.getNumero_serie());
+		return deviceCatalogRepository.save(dc_exists);
 	}
 
 	@Override
-	public void delete(String code) {
-		// TODO Auto-generated method stub
-
+	public void delete(String device_id) {
+		deviceCatalogRepository.deleteById(device_id);
 	}
 
 }

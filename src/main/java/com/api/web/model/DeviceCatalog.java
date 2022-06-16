@@ -1,14 +1,14 @@
 package com.api.web.model;
 
-import java.util.Date;
+//import java.util.Date;
 //import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+//import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 
 @Entity
 @Table(name="catalogo_dispositivo")
-public class DeviceCatalog{
+public class DeviceCatalog extends BaseEntity{
 	  @Id @Column(length = 50) private String id_dispositivo;
 	  @Column(nullable = false) private String agente;
 	  @Column(nullable = false) private String identificador;
@@ -44,15 +44,15 @@ public class DeviceCatalog{
 	public String getUsuario_ingresa() {
 		return usuario_ingresa;
 	}
-	public Date getFecha_ingresa() {
+	/*public Date getFecha_ingresa() {
 		return fecha_ingresa;
-	}
+	}*/
 	public String getUsuario_modifica() {
 		return usuario_modifica;
 	}
-	public Date getFecha_modifica() {
+	/*public Date getFecha_modifica() {
 		return fecha_modifica;
-	}
+	}*/
 	public String getNumero_imei() {
 		return numero_imei;
 	}
@@ -95,15 +95,15 @@ public class DeviceCatalog{
 	public void setUsuario_ingresa(String usuario_ingresa) {
 		this.usuario_ingresa = usuario_ingresa;
 	}
-	public void setFecha_ingresa(Date fecha_ingresa) {
+	/*public void setFecha_ingresa(Date fecha_ingresa) {
 		this.fecha_ingresa = fecha_ingresa;
-	}
+	}*/
 	public void setUsuario_modifica(String usuario_modifica) {
 		this.usuario_modifica = usuario_modifica;
 	}
-	public void setFecha_modifica(Date fecha_modifica) {
+	/*public void setFecha_modifica(Date fecha_modifica) {
 		this.fecha_modifica = fecha_modifica;
-	}
+	}*/
 	public void setNumero_imei(String numero_imei) {
 		this.numero_imei = numero_imei;
 	}
@@ -121,9 +121,9 @@ public class DeviceCatalog{
 	  @Column(nullable = false,length = 50) private String modelo_dispositivo;
 	  @Column(nullable = false,length = 25) private String estado_dispositivo;
 	  @Column(nullable = false,length = 50) private String usuario_ingresa;
-	  @Temporal(TemporalType.TIMESTAMP) @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") private Date fecha_ingresa; 
+	 // @Temporal(TemporalType.TIMESTAMP) @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") private Date fecha_ingresa; 
 	  @Column(length = 50) private String usuario_modifica;
-	  @Temporal(TemporalType.TIMESTAMP) @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") private Date fecha_modifica; 
+	  //@Temporal(TemporalType.TIMESTAMP) @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") private Date fecha_modifica; 
 	  @Column(length = 15) private String numero_imei;
 	  @Column(length = 17) private String direccion_wifi;
 	  @Column(length = 17) private String direccion_bluetooth;
