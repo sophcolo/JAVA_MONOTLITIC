@@ -58,7 +58,13 @@
           <a class="nav-link" aria-current="page">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/}">users</a>
+          <a class="nav-link" th:href="@{/}">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  th:href="@{/devices}">Catalago de Dispositivos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  th:href="@{/devices}">Dispositivos de Usuarios</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto link-light">
@@ -86,7 +92,11 @@
            </div>
            <div class="col">
             <label class="form-label">País</label>
-            <input type="text" class="form-control" th:field="*{idt}"/>
+            <select class="form-control" th:field="*{idt}">
+              <option th:each="country: ${countries}"
+                      th:text="${country.name}"
+                      th:value="${country}"></option>
+            </select>
           </div>
            <div class="col">
                 <label class="form-label">Correo Electrónico</label>
@@ -101,12 +111,20 @@
            </div>
            <div class="col">
              <label class="form-label">País de Identificacón</label>
-             <input type="text" class="form-control" th:field="*{ctr}"/>
+             <select class="form-control" th:field="*{ctr}">
+              <option th:each="country: ${countries}"
+                      th:text="${country.name}"
+                      th:value="${country}"></option>
+              </select>
            </div>
            <div class="col">
 
              <label class="form-label">Nivel de Seguridad</label>
-             <input type="text" class="form-control" th:field="*{scl}"/>
+             <select class="form-control" th:field="*{scl}">
+              <option th:each="seclev: ${securitylevels}"
+                     th:text="${seclev}"
+                     th:value="${seclev.value}"></option>
+             </select>
            </div>
            <div class="col">
 

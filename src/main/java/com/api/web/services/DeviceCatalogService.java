@@ -2,15 +2,22 @@ package com.api.web.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.api.web.interfaces.DeviceCatalogServiceInterface;
 import com.api.web.model.DeviceCatalog;
+import com.api.web.repositories.DeviceCatalogRepository;
 
+@Service
 public class DeviceCatalogService implements DeviceCatalogServiceInterface {
+	
+	@Autowired
+    private DeviceCatalogRepository deviceCatalogRepository;
 
 	@Override
 	public List<DeviceCatalog> all() {
-		// TODO Auto-generated method stub
-		return null;
+		return deviceCatalogRepository.findAll();
 	}
 
 	@Override
@@ -21,8 +28,7 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 
 	@Override
 	public DeviceCatalog insert(DeviceCatalog dc) {
-		// TODO Auto-generated method stub
-		return null;
+		return deviceCatalogRepository.save(dc);
 	}
 
 	@Override

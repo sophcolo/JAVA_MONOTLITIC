@@ -58,7 +58,7 @@
           <a class="nav-link" aria-current="page">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/}">Usuarios</a>
+          <a class="nav-link" th:href="@{/}">users</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"  th:href="@{/devices}">Catalago de Dispositivos</a>
@@ -79,69 +79,81 @@
   </div>
 </nav>
 <div class="forms">
-  <h3>Create User</h3>
-   <form th:action="@{/users/store}" th:object="${user}" method="POST">
+  <h3>Nuevo Dispositivo</h3>
+   <form th:action="@{/users/store}" th:object="${device}" method="POST">
        <div class="row">
            <div class="col">
-                 <label class="form-label">Código</label>
-                 <input type="text" class="form-control" th:field="*{usr}"/>
+                 <label class="form-label">Código Dispositivo</label>
+                 <input type="text" class="form-control" th:field="*{id_dispositivo}"/>
            </div>
            <div class="col">
-                 <label class="form-label">Nombres</label>
-                 <input type="text" class="form-control" th:field="*{nam}"/>
+                 <label class="form-label">Agente</label>
+                 <input type="text" class="form-control" th:field="*{agente}"/>
            </div>
            <div class="col">
-            <label class="form-label">País</label>
-            <select class="form-control" th:field="*{idt}">
-              <option th:each="country: ${countries}"
+                <label class="form-label">Identificador</label>
+                <input type="text" class="form-control" th:field="*{identificador}"/>
+           </div>
+           <div class="col">
+              <label class="form-label">Número Teléfonico</label>
+              <input type="text" class="form-control" th:field="*{numero_telefono}"/>
+            </div>
+       </div>
+       <div class="row">
+           
+           <div class="col">
+            <label class="form-label">Operador Teléfonico</label>
+            <select class="form-control" th:field="*{operador_telefonico}">
+              <option th:each="country: ${telephoneOperators}"
                       th:text="${country.name}"
                       th:value="${country}"></option>
             </select>
           </div>
            <div class="col">
-                <label class="form-label">Correo Electrónico</label>
-                <input type="text" class="form-control" th:field="*{pem}"/>
-          </div>
-       </div>
-       <div class="row">
-           <div class="col">
-
-             <label class="form-label">Identificacíon</label>
-             <input type="text" class="form-control" th:field="*{idi}"/>
-           </div>
-           <div class="col">
-             <label class="form-label">País de Identificacón</label>
-             <select class="form-control" th:field="*{ctr}">
-              <option th:each="country: ${countries}"
+             <label class="form-label">Sistema Operativo</label>
+             <select class="form-control" th:field="*{sistema_operativo}">
+              <option th:each="country: ${operatingSystems}"
                       th:text="${country.name}"
                       th:value="${country}"></option>
             </select>
            </div>
            <div class="col">
-
-             <label class="form-label">Nivel de Seguridad</label>
-             <select class="form-control" th:field="*{scl}">
-               <option th:each="seclev: ${securitylevels}"
-                      th:text="${seclev}"
-                      th:value="${seclev.value}"></option>
-             </select>
+             <label class="form-label">Versión del Sistema</label>
+             <input type="text" class="form-control" th:field="*{version_sistema}"/>
            </div>
            <div class="col">
 
-             <label class="form-label">Ten</label>
-             <input type="text" class="form-control" th:field="*{ten}"/>
+             <label class="form-label">Módelo Dispositivo</label>
+             <input type="text" class="form-control" th:field="*{modelo_dispositivo}"/>
            </div>
        </div>
        <div class="row">
            <div class="col">
-             <label class="form-label">Ent</label>
-             <input type="text" class="form-control"  th:field="*{ent}"/>
+             <label class="form-label">Estado Dispositivo</label>
+             <input type="text" class="form-control"  th:field="*{estado_dispositivo}"/>
            </div>
-           <div class="col-9  form__button">
-             <button type='submit' class='btn btn-primary'>Store</button> 
-           </div>
-             
+           <div class="col">
+            <label class="form-label">Número Imei</label>
+            <input type="text" class="form-control"  th:field="*{numero_imei}"/>
+          </div>
+          <div class="col">
+            <label class="form-label">Dirección Wifi</label>
+            <input type="text" class="form-control"  th:field="*{direccion_wifi}"/>
+          </div>
+          <div class="col">
+            <label class="form-label">Direccion Bluetooth</label>
+            <input type="text" class="form-control"  th:field="*{direccion_bluetooth}"/>
+          </div>
        </div>
+       <div class="row">
+          <div class="col">
+            <label class="form-label">Número de Serie</label>
+            <input type="text" class="form-control"  th:field="*{numero_serie}"/>
+          </div>
+          <div class="col-9  form__button">
+            <button type='submit' class='btn btn-primary'>Store</button> 
+          </div>
+      </div>
    </form>
 </div>
 

@@ -1,5 +1,6 @@
 package com.api.web.controllers;
-
+import com.api.web.enums.Countries;
+import com.api.web.enums.SecurityLevels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -24,6 +25,8 @@ public class UserController {
 	public String create(Model model) {
 		Usuario user = new Usuario();
 		model.addAttribute("user",user);
+		model.addAttribute("countries",Countries.values());
+		model.addAttribute("securitylevels",SecurityLevels.values());
 		return "users/create";
 	}
 	
@@ -36,6 +39,8 @@ public class UserController {
 	@GetMapping({"/users/edit/{code}"})
 	public String edit(@PathVariable String code,Model model) {
 		model.addAttribute("user", userService.getById(code));
+		model.addAttribute("countries",Countries.values());
+		model.addAttribute("securitylevels",SecurityLevels.values());
 		return "users/edit";
 	}
 	
