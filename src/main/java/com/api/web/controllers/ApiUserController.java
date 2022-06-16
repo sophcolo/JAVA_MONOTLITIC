@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.api.web.model.User;
+import com.api.web.model.Usuario;
 import com.api.web.services.UserService;
 
 @RestController
@@ -20,23 +20,23 @@ public class ApiUserController {
     private UserService userService;
 	
 	@GetMapping(value = "/users")
-    public List<User> all() {
+    public List<Usuario> all() {
         return userService.all();
     }
 
 	@GetMapping(value = "/users/{id}")
-    public User getById(@PathVariable String id) {
+    public Usuario getById(@PathVariable String id) {
         return userService.getById(id);
     }
 
     @PostMapping(value = "/users")
-    public User save(@RequestBody User usr) {
+    public Usuario save(@RequestBody Usuario usr) {
         //return usr;
         return userService.insert(usr);
     }
 
     @PutMapping(value = "/users/{id}")
-    public User update(@PathVariable String code, @RequestBody User usr) {
+    public Usuario update(@PathVariable String code, @RequestBody Usuario usr) {
         return userService.udpate(code, usr);
     }
 

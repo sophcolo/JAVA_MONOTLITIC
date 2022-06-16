@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.api.web.model.User;
+import com.api.web.model.Usuario;
 import com.api.web.services.UserService;
 
 @Controller
@@ -22,13 +22,13 @@ public class UserController {
 	
 	@GetMapping({"/users/create"})
 	public String create(Model model) {
-		User user = new User();
+		Usuario user = new Usuario();
 		model.addAttribute("user",user);
 		return "users/create";
 	}
 	
 	@PostMapping("/users/store")
-	public String save(@ModelAttribute("user") User user) {
+	public String save(@ModelAttribute("user") Usuario user) {
 		userService.insert(user);
 		return "redirect:/";
 	}
@@ -40,7 +40,7 @@ public class UserController {
 	}
 	
 	@PostMapping({"/users/update/{code}"})
-	public String update(@PathVariable String code,@ModelAttribute("user") User user) {
+	public String update(@PathVariable String code,@ModelAttribute("user") Usuario user) {
 		userService.udpate(code, user);
 		return "redirect:/";
 	}

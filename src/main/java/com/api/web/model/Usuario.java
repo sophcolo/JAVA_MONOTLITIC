@@ -2,12 +2,13 @@ package com.api.web.model;
 
 import javax.persistence.*;
 import java.util.Date;
+//import java.util.List;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="usuarios")
+public class Usuario {
 	@Id
     @Column(length = 50)
     private String usr;
@@ -108,11 +109,11 @@ public class User {
     }
 
     public String getAdd() {
-        return add;
+        return f_add;
     }
 
-    public void setAdd(String add) {
-        this.add = add;
+    public void setAdd(String f_add) {
+        this.f_add = f_add;
     }
 
     public String getPem() {
@@ -457,7 +458,7 @@ public class User {
     @Column(length = 3)
     private String ctr;
     @Column(length = 120)
-    private String add;
+    private String f_add;
     @Column(length = 80,unique=true)
     private String pem;
     @Column(length = 100)
@@ -541,4 +542,7 @@ public class User {
     private String eml;
     @Column(columnDefinition = "char(2)")
     private String ope;
+    
+    /*@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="user")
+    private List<UserDevice> userDevices;*/
 }

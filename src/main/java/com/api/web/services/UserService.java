@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.api.web.repositories.UserRepository;
 import com.api.web.interfaces.UserServiceInterface;
-import com.api.web.model.User;
+import com.api.web.model.Usuario;
 
 
 @Service
@@ -15,25 +15,23 @@ public class UserService implements UserServiceInterface{
     private UserRepository userRepository;
 	
 	@Override
-	public List<User> all() {
-		// TODO Auto-generated method stub
+	public List<Usuario> all() {
 		return userRepository.findAll();
 	}
 
 	@Override
-	public User getById(String code) {
-		// TODO Auto-generated method stub
+	public Usuario getById(String code) {
 		return userRepository.findById(code).get();
 	}
 
 	@Override
-	public User insert(User usr) {
+	public Usuario insert(Usuario usr) {
 		return userRepository.save(usr);
 	}
 
 	@Override
-	public User udpate(String code, User user) {
-		User user_exists = userRepository.findById(code).get();
+	public Usuario udpate(String code, Usuario user) {
+		Usuario user_exists = userRepository.findById(code).get();
 		user_exists.setNam(user.getNam());
 		user_exists.setCtr(user.getCtr());
 		user_exists.setEnt(user.getEnt());
