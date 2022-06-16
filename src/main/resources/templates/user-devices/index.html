@@ -52,7 +52,7 @@
             <a class="nav-link"  th:href="@{/devices}">Catalago de Dispositivos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  th:href="@{/userdevices}">Dispositivos de Usuarios</a>
+            <a class="nav-link"  th:href="@{/devices}">Dispositivos de Usuarios</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto link-light">
@@ -72,26 +72,26 @@
             <table class="table table-bordered">
                 <thead class="bg-primary text-white">
                 <tr>
-                    <th>Identificador</th>
-                    <th>Número de Telefono</th>
-                    <th>Operador</th>
-                    <th>Sistema Operativo</th>
-                    <th>Versión Sistema</th>
-                    <th>Modelo Dispositivo</th>
-                    <th><a th:href="@{/devices/create}" class="btn btn-success">Create</a></th>
+                    <th>Usuario</th>
+                    <th>Dispositivo</th>
+                    <th>Id Detectado</th>
+                    <th>Estado Mantenimeinto</th>
+                    <th>Estado Dispositivo</th>
+                    <th>Nombre Dispositivo</th>
+                    <th><a th:href="@{/userdevices/create}" class="btn btn-success">Create</a></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="device:${devices}">
-                    <td th:text="${device.identificador}"></td>
-                    <td th:text="${device.numero_telefono}"></td>
-                    <td th:text="${device.operador_telefonico}"></td>
-                    <td th:text="${device.sistema_operativo}"></td>
-                    <td th:text="${device.version_sistema}"></td>
-                    <td th:text="${device.modelo_dispositivo}"></td>
+                <tr th:each="userdevice:${userdevices}">
+                    <td th:text="${userdevice.usuario}"></td>
+                    <td th:text="${userdevice.id_dispositivo}"></td>
+                    <td th:text="${userdevice.id_detectid}"></td>
+                    <td th:text="${userdevice.estado_detectid}"></td>
+                    <td th:text="${userdevice.estado_mantenimiento}"></td>
+                    <td th:text="${userdevice.nombre_dispositivo}"></td>
                     <td>
-                        <a th:href="@{/devices/edit/{code}(code=${device.id_dispositivo})}" class="btn btn-info">&#9997;</a>
-                        <a th:href="@{/devices/delete/{code}(code=${device.id_dispositivo})}" class="btn btn-danger">&#9940;</a>
+                        <a th:href="@{/userdevice/edit/{code}(code=${userdevice.id})}" class="btn btn-info">&#9997;</a>
+                        <a th:href="@{/userdevice/delete/{code}(code=${userdevice.id})}" class="btn btn-danger">&#9940;</a>
                     </td>
                 </tr>
                 </tbody>
