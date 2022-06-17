@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.api.web.model.UserDevice;
 
 @Repository
-public interface UserDeviceRepository extends JpaRepository<UserDevice, String> {
+public interface UserDeviceRepository extends JpaRepository<UserDevice, Integer> {
 
 }
 

@@ -44,9 +44,11 @@ public class UserDeviceController {
 			return "redirect:/userdevices";
 		}
 		
-		@GetMapping({"/userdevices/edit/{code}"})
-		public String edit(@PathVariable Integer code,Model model) {
-			model.addAttribute("device", userDeviceService.getById(code));
+		@GetMapping({"/userdevices/edit/{id}"})
+		public String edit(@PathVariable Integer id,Model model) {
+			model.addAttribute("userdevice", userDeviceService.getById(id));
+			model.addAttribute("users",userService.all());
+			model.addAttribute("devices",dcService.all());
 			return "user-devices/edit";
 		}
 		

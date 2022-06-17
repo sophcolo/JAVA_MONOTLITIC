@@ -73,81 +73,47 @@
   </div>
 </nav>
 <div class="forms">
-  <h3>Edición de Dispositivos</h3>
-   <form th:action="@{/devices/update/{code}(code=${device.id_dispositivo})}" th:object="${device}" method="POST">
+  <h3>Edición de Dispositivos por Usuarios</h3>
+   <form th:action="@{/userdevices/update/{id}(id=${userdevice.id})}" th:object="${userdevice}" method="POST">
     <div class="row">
-        <div class="col">
-              <label class="form-label">Código Dispositivo</label>
-              <input type="text" class="form-control" th:field="*{id_dispositivo}"/>
-        </div>
-        <div class="col">
-              <label class="form-label">Agente</label>
-              <input type="text" class="form-control" th:field="*{agente}"/>
-        </div>
-        <div class="col">
-             <label class="form-label">Identificador</label>
-             <input type="text" class="form-control" th:field="*{identificador}"/>
-        </div>
-        <div class="col">
-           <label class="form-label">Número Teléfonico</label>
-           <input type="text" class="form-control" th:field="*{numero_telefono}"/>
-         </div>
-    </div>
-    <div class="row">
-        
-        <div class="col">
-         <label class="form-label">Operador Teléfonico</label>
-         <select class="form-control" th:field="*{operador_telefonico}">
-           <option th:each="country: ${telephoneOperators}"
-                   th:text="${country.name}"
-                   th:value="${country}"></option>
-         </select>
-       </div>
-        <div class="col">
-          <label class="form-label">Sistema Operativo</label>
-          <select class="form-control" th:field="*{sistema_operativo}">
-           <option th:each="country: ${operatingSystems}"
-                   th:text="${country.name}"
-                   th:value="${country}"></option>
-         </select>
-        </div>
-        <div class="col">
-          <label class="form-label">Versión del Sistema</label>
-          <input type="text" class="form-control" th:field="*{version_sistema}"/>
-        </div>
-        <div class="col">
-
-          <label class="form-label">Módelo Dispositivo</label>
-          <input type="text" class="form-control" th:field="*{modelo_dispositivo}"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-          <label class="form-label">Estado Dispositivo</label>
-          <input type="text" class="form-control"  th:field="*{estado_dispositivo}"/>
-        </div>
-        <div class="col">
-         <label class="form-label">Número Imei</label>
-         <input type="text" class="form-control"  th:field="*{numero_imei}"/>
-       </div>
+      <div class="col">
+            <label class="form-label">Dispositivo</label>
+            <select class="form-control" th:field="*{deviceCatalog}">
+             <option th:each="device: ${devices}"
+                     th:text="${device.modelo_dispositivo}"
+                     th:value="${device.id_dispositivo}"></option>
+           </select>
+      </div>
+      <div class="col">
+           <label class="form-label">Usuario</label>
+           <select class="form-control" th:field="*{usuario}">
+             <option th:each="user: ${users}"
+                     th:text="${user.nam}"
+                     th:value="${user.usr}"></option>
+           </select>
+      </div>
+      <div class="col">
+       <label class="form-label">ID Detectado</label>
+       <input type="text" class="form-control" th:field="*{id_detectid}"/>
+      </div>
        <div class="col">
-         <label class="form-label">Dirección Wifi</label>
-         <input type="text" class="form-control"  th:field="*{direccion_wifi}"/>
+             <label class="form-label">Estado ID Detectado</label>
+             <input type="text" class="form-control" th:field="*{estado_detectid}"/>
        </div>
-       <div class="col">
-         <label class="form-label">Direccion Bluetooth</label>
-         <input type="text" class="form-control"  th:field="*{direccion_bluetooth}"/>
-       </div>
-    </div>
-    <div class="row">
-       <div class="col">
-         <label class="form-label">Número de Serie</label>
-         <input type="text" class="form-control"  th:field="*{numero_serie}"/>
-       </div>
-       <div class="col-9  form__button">
-         <button type='submit' class='btn btn-primary'>Store</button> 
-       </div>
-   </div>
+  </div>
+  <div class="row">
+     <div class="col">
+         <label class="form-label">Estado de Mantenimiento</label>
+         <input type="text" class="form-control" th:field="*{estado_mantenimiento}"/>
+     </div>
+     <div class="col">
+       <label class="form-label">Nombre Dispositvo</label>
+       <input type="text" class="form-control" th:field="*{nombre_dispositivo}"/>
+     </div>
+     <div class="col-6  form__button">
+       <button type='submit' class='btn btn-primary'>Store</button> 
+     </div>
+ </div>
    </form>
 </div>
 

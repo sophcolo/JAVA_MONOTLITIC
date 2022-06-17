@@ -22,8 +22,7 @@ public class UserDeviceService implements UserDeviceServiceInterface {
 
 	@Override
 	public UserDevice getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDeviceRepository.findById(id).get();
 	}
 
 	@Override
@@ -32,15 +31,20 @@ public class UserDeviceService implements UserDeviceServiceInterface {
 	}
 
 	@Override
-	public UserDevice udpate(Integer code, UserDevice ud) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDevice udpate(Integer id, UserDevice ud) {
+		UserDevice ud_exists = userDeviceRepository.findById(id).get();
+		ud_exists.setDeviceCatalog(ud.getDeviceCatalog());
+		ud_exists.setUsuario(ud.getUsuario());
+		ud_exists.setId_detectid(ud.getId_detectid());
+		ud_exists.setEstado_detectid(ud.getEstado_detectid());
+		ud_exists.setEstado_mantenimiento(ud.getEstado_mantenimiento());
+		ud_exists.setNombre_dispositivo(ud.getNombre_dispositivo());
+		return userDeviceRepository.save(ud_exists);
 	}
 
 	@Override
-	public void delete(Integer code) {
-		// TODO Auto-generated method stub
-
+	public void delete(Integer id) {
+		userDeviceRepository.deleteById(id);
 	}
 
 }
