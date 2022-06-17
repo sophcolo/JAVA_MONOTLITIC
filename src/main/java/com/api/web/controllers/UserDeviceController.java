@@ -18,8 +18,10 @@ public class UserDeviceController {
 		
 		@Autowired
 	    private UserDeviceService userDeviceService;
-		//private UserService userService;
-		//private DeviceCatalogService dcService;
+		@Autowired
+		private UserService userService;
+		@Autowired
+		private DeviceCatalogService dcService;
 		
 		@GetMapping({"/userdevices"})
 		public String index(Model model) {
@@ -30,15 +32,15 @@ public class UserDeviceController {
 		@GetMapping({"/userdevices/create"})
 		public String create(Model model) {
 			UserDevice userdevice = new UserDevice();
-			/*model.addAttribute("usuarios",userService.all());
-			model.addAttribute("devices",dcService.all());*/
+			model.addAttribute("users",userService.all());
+			model.addAttribute("devices",dcService.all());
 			model.addAttribute("userdevice",userdevice);
 			return "user-devices/create";
 		}
 		
 		@PostMapping("/userdevices/store")
-		public String save(@ModelAttribute("device") UserDevice dc) {
-			userDeviceService.insert(dc);
+		public String save(@ModelAttribute("userdevice") UserDevice ud) {
+			userDeviceService.insert(ud);
 			return "redirect:/userdevices";
 		}
 		

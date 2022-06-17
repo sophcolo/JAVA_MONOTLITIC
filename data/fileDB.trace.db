@@ -1,0 +1,4 @@
+2022-06-16 22:20:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "ESTADO_DETECTID CHARACTER VARYING(4)": "'Bueno' (5)"
+Value too long for column "ESTADO_DETECTID CHARACTER VARYING(4)": "'Bueno' (5)"; SQL statement:
+insert into usuario_dispositivo (id, id_dispositivo, estado_detectid, estado_mantenimiento, id_detectid, nombre_dispositivo, usuario, usuario_ingresa, usuario_modifica) values (default, ?, ?, ?, ?, ?, ?, ?, ?) [22001-212]

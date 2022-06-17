@@ -28,8 +28,7 @@ public class UserDeviceService implements UserDeviceServiceInterface {
 
 	@Override
 	public UserDevice insert(UserDevice ud) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDeviceRepository.save(ud);
 	}
 
 	@Override
