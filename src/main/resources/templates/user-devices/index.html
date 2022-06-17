@@ -84,7 +84,7 @@
                 <tbody>
                 <tr th:each="userdevice:${userdevices}">
                     <td th:text="${userdevice.usuario.nam}"></td>
-                    <td th:text="${userdevice.deviceCatalog.numero_telefono}"></td>
+                    <td th:text="${userdevice.deviceCatalog.modelo_dispositivo} +'('+${userdevice.deviceCatalog.numero_telefono}+')'"></td>
                     <td th:text="${userdevice.id_detectid}"></td>
                     <td th:text="${userdevice.estado_detectid}"></td>
                     <td th:text="${userdevice.estado_mantenimiento}"></td>
