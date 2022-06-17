@@ -7,7 +7,7 @@ package com.api.web.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="catalogo_dispositivo")
+@Table(name="wwa_catalogo_dispositivo")
 public class DeviceCatalog extends BaseEntity{
 	  @Id @Column(length = 50) private String id_dispositivo;
 	  @Column(nullable = false) private String agente;

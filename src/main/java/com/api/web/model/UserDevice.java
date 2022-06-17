@@ -4,7 +4,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="usuario_dispositivo")
+@Table(name="wwa_usuario_dispositivo")
 public class UserDevice{
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.IDENTITY)
