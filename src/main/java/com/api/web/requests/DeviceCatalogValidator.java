@@ -6,7 +6,7 @@ import com.api.web.dtos.DeviceCatalogRequest;
 import com.api.web.exceptions.ApiUnprocessableEntity;
 
 @Component
-public class DeviceCatalogValidator implements DeviceCatalogValidatorInterface{
+public class DeviceCatalogValidator implements ModelValidatorInterface{
 
 	@Override
 	public void validator(DeviceCatalogRequest request) throws ApiUnprocessableEntity {

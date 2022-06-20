@@ -10,6 +10,6 @@ import com.api.web.exceptions.ApiUnprocessableEntity;
  * @date 19-06-2022
  */
 @Service
-public interface DeviceCatalogValidatorInterface {
+public interface ModelValidatorInterface {
 	void validator(DeviceCatalogRequest request) throws ApiUnprocessableEntity;
 }
