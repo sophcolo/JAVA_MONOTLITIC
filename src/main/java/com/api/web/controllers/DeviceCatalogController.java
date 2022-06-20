@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.api.web.enums.OperatingSystems;
 import com.api.web.enums.TelephoneOperators;
 import com.api.web.model.DeviceCatalog;
+import com.api.web.dtos.DeviceCatalogDTO;
+import com.api.web.dtos.DeviceCatalogRequest;
 import com.api.web.services.DeviceCatalogService;
 
 @Controller
@@ -35,7 +37,7 @@ public class DeviceCatalogController {
 	}
 	
 	@PostMapping("/devices/store")
-	public String save(@ModelAttribute("device") DeviceCatalog dc) {
+	public String save(@ModelAttribute("device") DeviceCatalogRequest dc) {
 		dcService.insert(dc);
 		return "redirect:/devices";
 	}
@@ -49,7 +51,7 @@ public class DeviceCatalogController {
 	}
 	
 	@PostMapping({"/devices/update/{device_id}"})
-	public String update(@PathVariable String device_id,@ModelAttribute("device") DeviceCatalog dc) {
+	public String update(@PathVariable String device_id,@ModelAttribute("device") DeviceCatalogDTO dc) {
 		dcService.udpate(device_id, dc);
 		return "redirect:/devices";
 	}

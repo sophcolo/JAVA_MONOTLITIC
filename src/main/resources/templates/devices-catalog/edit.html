@@ -83,6 +83,7 @@
    <form th:action="@{/devices/update/{code}(code=${device.id_dispositivo})}" th:object="${device}" method="POST">
     <div class="row">
         <div class="col">
+          <input type="hidden" th:field="*{usuario_ingresa}">
               <label class="form-label">Código Dispositivo</label>
               <input type="text" class="form-control" th:field="*{id_dispositivo}"/>
         </div>

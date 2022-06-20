@@ -1,8 +1,8 @@
 package com.api.web.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,38 +10,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.api.web.model.DeviceCatalog;
+import com.api.web.dtos.DeviceCatalogDTO;
+import com.api.web.dtos.DeviceCatalogRequest;
+import com.api.web.exceptions.ApiUnprocessableEntity;
+import com.api.web.requests.DeviceCatalogValidator;
 import com.api.web.services.DeviceCatalogService;
 
 @RestController
+@RequestMapping("/api/devices")
 public class ApiDeviceCatalogController {
 	@Autowired
     private DeviceCatalogService deviceCatalogService;
 	
-	@GetMapping(value = "/api/devices")
-    public List<DeviceCatalog> all() {
-        return deviceCatalogService.all();
+	@Autowired
+	private DeviceCatalogValidator deviceValidator;
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> all() {
+        return ResponseEntity.ok(deviceCatalogService.all());
     }
 
-	@GetMapping(value = "/api/devices/{id}")
-    public DeviceCatalog getById(@PathVariable String id) {
-        return deviceCatalogService.getById(id);
+	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getById(@PathVariable String id) {
+        return ResponseEntity.ok(deviceCatalogService.getById(id));
     }
 
-    @PostMapping(value = "/api/devices")
-    public DeviceCatalog save(@RequestBody DeviceCatalog dc) {
-    	 return deviceCatalogService.insert(dc);
+	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> store(@RequestBody DeviceCatalogRequest dc) throws ApiUnprocessableEntity {	
+		 this.deviceValidator.validator(dc);
+         deviceCatalogService.insert(dc);
+    	 return ResponseEntity.ok(Boolean.TRUE);
+    }
+	
+
+    @PutMapping(value = "/{id}",consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody DeviceCatalogDTO dc) {
+        deviceCatalogService.udpate(id, dc);
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 
-    @PutMapping(value = "/api/devices{id}")
-    public DeviceCatalog update(@PathVariable String code, @RequestBody DeviceCatalog dc) {
-        return deviceCatalogService.udpate(code, dc);
-    }
-
-    @DeleteMapping(value = "/api/devices/{id}")
-    public String delete(@PathVariable String code) {
-    	deviceCatalogService.delete(code);
-        return "User con Código: " + code + " fue borrado satisfactoriamente";
+    @DeleteMapping(value = "/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> delete(@PathVariable String id) {
+    	deviceCatalogService.delete(id);
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 }
