@@ -1,6 +1,7 @@
 package com.api.web.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import com.api.web.helpers.HelperMapper;
 import com.api.web.interfaces.DeviceCatalogServiceInterface;
 import com.api.web.model.DeviceCatalog;
 import com.api.web.repositories.DeviceCatalogRepository;
-
 
 @Service
 public class DeviceCatalogService implements DeviceCatalogServiceInterface {
@@ -24,9 +24,12 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 	}
 
 	@Override
-	public DeviceCatalog getById(String id) {
-		return deviceCatalogRepository.findById(id).get();
+	public Optional<DeviceCatalog> getById(String id) {
+	    return deviceCatalogRepository.findById(id);
 	}
+	/*public DeviceCatalog getById(String id) {
+		return deviceCatalogRepository.findById(id).get();
+	}*/
 
 	@Override
 	public DeviceCatalog insert(DeviceCatalogRequest dc) {

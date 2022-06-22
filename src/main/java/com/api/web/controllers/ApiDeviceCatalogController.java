@@ -34,10 +34,13 @@ public class ApiDeviceCatalogController {
     }
 
 	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getById(@PathVariable String id) {
-        return ResponseEntity.ok(deviceCatalogService.getById(id));
+    public ResponseEntity<DeviceCatalog> getById(@PathVariable String id) {
+        //return ResponseEntity.ok(deviceCatalogService.getById(id));
+		return deviceCatalogService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+	
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
     public DeviceCatalog store(@RequestBody DeviceCatalogRequest dc) throws ApiUnprocessableEntity {	
 		 this.deviceValidator.validator(dc);
