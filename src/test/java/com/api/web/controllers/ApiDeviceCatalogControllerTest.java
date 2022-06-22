@@ -1,7 +1,7 @@
 package com.api.web.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -46,7 +46,7 @@ class ApiDeviceCatalogControllerTest {
     }
     
     @Test
-    public void insertDeviceCatalog() throws Exception{
+    public void test_insert_device_catalog() throws Exception{
 
         // given - precondition or setup
     	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
@@ -79,7 +79,7 @@ class ApiDeviceCatalogControllerTest {
     
     // JUnit test for Get All devices catalog REST API
     @Test
-    public void getAllDevices() throws Exception{
+    public void test_get_all_device_catalog() throws Exception{
 		List<DeviceCatalog> listdeviceCatalogs = new ArrayList<>();
 		DeviceCatalog devicecatalog1 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00001","0002221","agente","+579999999991","CLARO","MAC","088881","009991","BUE","100001"), DeviceCatalog.class);
 		DeviceCatalog devicecatalog2 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00002","0002222","agente","+579999999992","MOVISTAR","ANDROID","088882","009992","EXE","100002"), DeviceCatalog.class);
@@ -103,7 +103,7 @@ class ApiDeviceCatalogControllerTest {
     // positive scenario - get Device Catalog id
     // JUnit test for GET employee by id REST API
     @Test
-    public void getDeviceCatalogById() throws Exception{
+    public void test_get_device_catalog_by_id() throws Exception{
     	// given - precondition or setup
     	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
     			.id_dispositivo("0000001")
@@ -137,7 +137,7 @@ class ApiDeviceCatalogControllerTest {
     // negative scenario - valid employee id
     // JUnit test for GET employee by id REST API
     @Test
-    public void getByIDWithInExistsDeviceCatalog() throws Exception{
+    public void test_get_by_id_with_not_found_device_catalog() throws Exception{
         // given - precondition or setup
         String deviceCatalogId = "0000002";
     	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
@@ -254,6 +254,35 @@ class ApiDeviceCatalogControllerTest {
 
         // then - verify the output
         response.andExpect(status().isNotFound())
+                .andDo(print());
+    }
+    
+    
+    // JUnit test for delete employee REST API
+    @Test
+    public void test_delete_device_catalag() throws Exception{
+        // given - precondition or setup
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+    	
+    	DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(devCat, DeviceCatalog.class);
+    	this.deviceCatalogRepository.save(devicecatalog);
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(delete("/api/devices/{id}", devCat.getId_dispositivo()));
+
+        // then - verify the output
+        response.andExpect(status().isOk())
                 .andDo(print());
     }
 }
