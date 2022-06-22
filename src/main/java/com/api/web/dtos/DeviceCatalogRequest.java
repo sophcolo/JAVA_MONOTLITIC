@@ -2,9 +2,13 @@ package com.api.web.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class DeviceCatalogRequest {
 
 	  @JsonProperty("id_dispositivo")

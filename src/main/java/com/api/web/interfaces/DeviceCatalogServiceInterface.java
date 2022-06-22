@@ -9,7 +9,7 @@ import com.api.web.model.DeviceCatalog;
 public interface DeviceCatalogServiceInterface {
 	public List<DeviceCatalog> all();
 	public DeviceCatalog getById(String id);
-	void insert(DeviceCatalogRequest dc);
+	public DeviceCatalog insert(DeviceCatalogRequest dc);
 	public DeviceCatalog udpate(String code, DeviceCatalogDTO dc);
 	public void delete(String code);
 }

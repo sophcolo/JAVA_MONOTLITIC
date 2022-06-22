@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.api.web.dtos.DeviceCatalogDTO;
 import com.api.web.dtos.DeviceCatalogRequest;
 import com.api.web.exceptions.ApiUnprocessableEntity;
+import com.api.web.model.DeviceCatalog;
 import com.api.web.requests.DeviceCatalogValidator;
 import com.api.web.services.DeviceCatalogService;
 
@@ -38,10 +39,9 @@ public class ApiDeviceCatalogController {
     }
 
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> store(@RequestBody DeviceCatalogRequest dc) throws ApiUnprocessableEntity {	
+    public DeviceCatalog store(@RequestBody DeviceCatalogRequest dc) throws ApiUnprocessableEntity {	
 		 this.deviceValidator.validator(dc);
-         deviceCatalogService.insert(dc);
-    	 return ResponseEntity.ok(Boolean.TRUE);
+    	 return deviceCatalogService.insert(dc);
     }
 	
 
