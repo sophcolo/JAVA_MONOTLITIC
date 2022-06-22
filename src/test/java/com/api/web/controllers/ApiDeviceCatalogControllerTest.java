@@ -1,6 +1,7 @@
 package com.api.web.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -74,6 +75,33 @@ class ApiDeviceCatalogControllerTest {
                         is(devCat.getNumero_telefono())))
                 .andExpect(jsonPath("$.operador_telefonico",
                         is(devCat.getOperador_telefonico())));
+    }
+    
+    // JUnit test for delete employee REST API
+    @Test
+    public void test_insert_device_catalog_with_out_agente() throws Exception{ 
+        // given - precondition or setup
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+
+        // when - action or behaviour that we are going test
+        ResultActions response = mockMvc.perform(post("/api/devices")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(devCat)));
+
+        // then - verify the output
+        response.andExpect(status().isUnprocessableEntity())
+        .andExpect(result -> assertEquals("El Agente es obligatorio", result.getResolvedException().getMessage()))
+        .andDo(print());
     }
     
     
@@ -212,7 +240,7 @@ class ApiDeviceCatalogControllerTest {
                 .andExpect(jsonPath("$.estado_dispositivo", is(deviceCatalogUpdate.getEstado_dispositivo())));
     }
     
- // JUnit test for update employee REST API - negative scenario
+    // JUnit test for update employee REST API - negative scenario
     @Test
     public void test_update_device_catalog_not_found() throws Exception{
     	// given - precondition or setup
@@ -260,7 +288,7 @@ class ApiDeviceCatalogControllerTest {
     
     // JUnit test for delete employee REST API
     @Test
-    public void test_delete_device_catalag() throws Exception{
+    public void test_delete_device_catalog() throws Exception{
         // given - precondition or setup
     	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
     			.id_dispositivo("0000001")
@@ -284,5 +312,33 @@ class ApiDeviceCatalogControllerTest {
         // then - verify the output
         response.andExpect(status().isOk())
                 .andDo(print());
+    }
+       
+    @Test
+    public void test_delete_device_catalog_not_found() throws Exception {
+    	// given - precondition or setup
+        String deviceCatalogId = "0000002";
+        
+        // given - precondition or setup
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+    	
+    	DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(devCat, DeviceCatalog.class);
+    	this.deviceCatalogRepository.save(devicecatalog);
+
+        mockMvc.perform(get("/api/devices/{id}", deviceCatalogId)
+          .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().isNotFound())
+          .andExpect(result -> assertEquals("Not Exists This Device", result.getResolvedException().getMessage()));
     }
 }
