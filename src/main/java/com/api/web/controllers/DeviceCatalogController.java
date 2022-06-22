@@ -44,7 +44,8 @@ public class DeviceCatalogController {
 	
 	@GetMapping({"/devices/edit/{code}"})
 	public String edit(@PathVariable String code,Model model) {
-		model.addAttribute("device", dcService.getById(code));
+		DeviceCatalog device = dcService.getById(code).get();
+		model.addAttribute("device", device);
 		model.addAttribute("operatingSystems",OperatingSystems.values());
 		model.addAttribute("telephoneOperators",TelephoneOperators.values());
 		return "devices-catalog/edit";
