@@ -26,7 +26,6 @@ import com.api.web.helpers.HelperMapper;
 import com.api.web.repositories.DeviceCatalogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class ApiDeviceCatalogControllerTest {
@@ -67,8 +66,8 @@ class ApiDeviceCatalogControllerTest {
                 .content(objectMapper.writeValueAsString(devCat)));
 
         // then - verify the result or output using assert statements
-        response.andDo(print()).
-                andExpect(status().isOk())
+        response.andDo(print())
+        		.andExpect(status().isOk())
                 .andExpect(jsonPath("$.numero_telefono",
                         is(devCat.getNumero_telefono())))
                 .andExpect(jsonPath("$.operador_telefonico",
@@ -99,4 +98,37 @@ class ApiDeviceCatalogControllerTest {
     }
     
     
+    // positive scenario - get Device Catalog id
+    // JUnit test for GET employee by id REST API
+    @Test
+    public void getDeviceCatalogById() throws Exception{
+        // given - precondition or setup
+    	// given - precondition or setup
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+    	
+    	DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(devCat, DeviceCatalog.class);
+    	this.deviceCatalogRepository.save(devicecatalog);
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(get("/api/devices/{id}", devCat.getId_dispositivo()));
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.numero_telefono",
+                        is(devCat.getNumero_telefono())))
+                .andExpect(jsonPath("$.operador_telefonico",
+                        is(devCat.getOperador_telefonico())));
+    }
 }
