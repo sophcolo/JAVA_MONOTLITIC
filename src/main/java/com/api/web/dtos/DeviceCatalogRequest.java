@@ -31,4 +31,14 @@ public class DeviceCatalogRequest {
 	  private String estado_dispositivo;
 	  @JsonProperty("usuario_ingresa")
 	  private String usuario_ingresa;
+	  @JsonProperty("usuario_modifica")
+	  private String usuario_modifica;
+	  @JsonProperty("numero_imei")
+	  private String numero_imei;
+	  @JsonProperty("direccion_wifi")
+	  private String direccion_wifi;
+	  @JsonProperty("direccion_bluetooth")
+	  private String direccion_bluetooth;
+	  @JsonProperty("numero_serie")
+	  private String numero_serie;
 }

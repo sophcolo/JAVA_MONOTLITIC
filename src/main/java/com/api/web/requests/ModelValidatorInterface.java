@@ -2,6 +2,7 @@ package com.api.web.requests;
 
 import org.springframework.stereotype.Service;
 import com.api.web.dtos.DeviceCatalogRequest;
+import com.api.web.exceptions.ApiNotFound;
 import com.api.web.exceptions.ApiUnprocessableEntity;
 
 /**
@@ -11,5 +12,6 @@ import com.api.web.exceptions.ApiUnprocessableEntity;
  */
 @Service
 public interface ModelValidatorInterface {
-	void validator(DeviceCatalogRequest request) throws ApiUnprocessableEntity;
+	void validatorRequest(DeviceCatalogRequest request ) throws ApiUnprocessableEntity;
+	void validatorIndentity(String paramModel ) throws ApiNotFound;
 }

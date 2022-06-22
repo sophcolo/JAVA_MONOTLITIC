@@ -53,7 +53,7 @@ public class DeviceCatalogController {
 	
 	@PostMapping({"/devices/update/{device_id}"})
 	public String update(@PathVariable String device_id,@ModelAttribute("device") DeviceCatalogDTO dc) {
-		dcService.udpate(device_id, dc);
+		//dcService.udpate(device_id, dc);
 		return "redirect:/devices";
 	}
 	

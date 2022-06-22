@@ -1,15 +1,23 @@
 package com.api.web.requests;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.api.web.dtos.DeviceCatalogRequest;
+import com.api.web.exceptions.ApiNotFound;
 import com.api.web.exceptions.ApiUnprocessableEntity;
+import com.api.web.services.DeviceCatalogService;
+
+import lombok.var;
+
 
 @Component
 public class DeviceCatalogValidator implements ModelValidatorInterface{
-
+	@Autowired
+    private DeviceCatalogService dcService;
+	
 	@Override
-	public void validator(DeviceCatalogRequest request) throws ApiUnprocessableEntity {
+	public void validatorRequest(DeviceCatalogRequest request ) throws ApiUnprocessableEntity {
 		if(request.getAgente() == null || request.getAgente().isEmpty()) {
 			message("El Agente es obligatorio");
 		}
@@ -30,7 +38,20 @@ public class DeviceCatalogValidator implements ModelValidatorInterface{
 		}
 	}
 	
+	@Override
+	public void validatorIndentity(String paramModel ) throws ApiNotFound {
+		var dc = dcService.getById(paramModel);
+		//System.out.printf(dc.toString());
+		if(!dc.isPresent() ) {
+			messageNotFound("Not Exists This Device");
+		}
+	}
+	
 	private void message(String message) throws ApiUnprocessableEntity{
 		throw new ApiUnprocessableEntity(message);
+	}
+	
+	private void messageNotFound(String message) throws ApiNotFound{
+		throw new ApiNotFound(message);
 	}
 }

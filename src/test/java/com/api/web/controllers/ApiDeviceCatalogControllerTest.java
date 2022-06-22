@@ -81,9 +81,9 @@ class ApiDeviceCatalogControllerTest {
     @Test
     public void test_get_all_device_catalog() throws Exception{
 		List<DeviceCatalog> listdeviceCatalogs = new ArrayList<>();
-		DeviceCatalog devicecatalog1 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00001","0002221","agente","+579999999991","CLARO","MAC","088881","009991","BUE","100001"), DeviceCatalog.class);
-		DeviceCatalog devicecatalog2 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00002","0002222","agente","+579999999992","MOVISTAR","ANDROID","088882","009992","EXE","100002"), DeviceCatalog.class);
-		DeviceCatalog devicecatalog3 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00003","0002223","agente","+579999999993","TIGO","WINDOWS","088883","009993","MAL","100003"), DeviceCatalog.class);
+		DeviceCatalog devicecatalog1 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00001","0002221","agente","+579999999991","CLARO","MAC","088881","009991","BUE","100001",null,null,null,null,null), DeviceCatalog.class);
+		DeviceCatalog devicecatalog2 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00002","0002222","agente","+579999999992","MOVISTAR","ANDROID","088882","009992","EXE","100002",null,null,null,null,null), DeviceCatalog.class);
+		DeviceCatalog devicecatalog3 = HelperMapper.modelMapper().map(new DeviceCatalogRequest("00003","0002223","agente","+579999999993","TIGO","WINDOWS","088883","009993","MAL","100003",null,null,null,null,null), DeviceCatalog.class);
 		listdeviceCatalogs.add(devicecatalog1);
 		listdeviceCatalogs.add(devicecatalog2);
 		listdeviceCatalogs.add(devicecatalog3);

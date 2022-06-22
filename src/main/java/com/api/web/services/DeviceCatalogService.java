@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.api.web.dtos.DeviceCatalogRequest;
-import com.api.web.dtos.DeviceCatalogDTO;
 import com.api.web.helpers.HelperMapper;
 import com.api.web.interfaces.DeviceCatalogServiceInterface;
 import com.api.web.model.DeviceCatalog;
@@ -27,9 +26,6 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 	public Optional<DeviceCatalog> getById(String id) {
 	    return deviceCatalogRepository.findById(id);
 	}
-	/*public DeviceCatalog getById(String id) {
-		return deviceCatalogRepository.findById(id).get();
-	}*/
 
 	@Override
 	public DeviceCatalog insert(DeviceCatalogRequest dc) {
@@ -38,7 +34,7 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 	}
 	
 	@Override
-	public DeviceCatalog udpate(String code, DeviceCatalogDTO dc) {
+	public DeviceCatalog udpate(String code, DeviceCatalogRequest dc) {
 		DeviceCatalog devicecatalog = deviceCatalogRepository.findById(code).get();
 		HelperMapper.modelMapper().map(dc, devicecatalog);
 		return deviceCatalogRepository.save(devicecatalog);
