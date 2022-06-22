@@ -1,6 +1,7 @@
 package com.api.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +36,6 @@ public class ApiDeviceCatalogController {
 
 	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DeviceCatalog> getById(@PathVariable String id) {
-        //return ResponseEntity.ok(deviceCatalogService.getById(id));
 		return deviceCatalogService.getById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -48,10 +48,20 @@ public class ApiDeviceCatalogController {
     }
 	
 
-    @PutMapping(value = "/{id}",consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody DeviceCatalogDTO dc) {
-        deviceCatalogService.udpate(id, dc);
-        return ResponseEntity.ok(Boolean.TRUE);
+    /*@PutMapping(value = "/{id}",consumes=MediaType.APPLICATION_JSON_VALUE)
+    public DeviceCatalog update(@PathVariable String id, @RequestBody DeviceCatalogDTO dc) {
+        return deviceCatalogService.udpate(id, dc);
+    }*/
+	
+	@PutMapping("{id}")
+    public ResponseEntity<DeviceCatalog> updateEmployee(@PathVariable String id, 
+    		 @RequestBody DeviceCatalogDTO dc){
+        return deviceCatalogService.getById(id)
+                .map(savedEmployee -> {
+                    DeviceCatalog updatedDC = deviceCatalogService.udpate(id, dc);
+                    return new ResponseEntity<>(updatedDC, HttpStatus.OK);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(value = "/{id}",produces=MediaType.APPLICATION_JSON_VALUE)

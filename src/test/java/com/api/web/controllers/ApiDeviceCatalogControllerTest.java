@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +26,7 @@ import com.api.web.dtos.DeviceCatalogRequest;
 import com.api.web.helpers.HelperMapper;
 import com.api.web.repositories.DeviceCatalogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -135,10 +137,9 @@ class ApiDeviceCatalogControllerTest {
     // negative scenario - valid employee id
     // JUnit test for GET employee by id REST API
     @Test
-    public void getByIDWithInExistsDeviceCataog() throws Exception{
+    public void getByIDWithInExistsDeviceCatalog() throws Exception{
         // given - precondition or setup
         String deviceCatalogId = "0000002";
-    	// given - precondition or setup
     	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
     			.id_dispositivo("0000001")
     			.identificador("0002221")
@@ -161,5 +162,98 @@ class ApiDeviceCatalogControllerTest {
         response.andExpect(status().isNotFound())
                 .andDo(print());
 
+    }
+    
+    // JUnit test for update employee REST API - positive scenario
+    @Test
+    public void test_update_device_catalog() throws Exception{
+        // given - precondition or setup
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+    	
+    	DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(devCat, DeviceCatalog.class);
+    	this.deviceCatalogRepository.save(devicecatalog);
+
+    	DeviceCatalogRequest deviceCatalogUpdate =  DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente 2")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("MOVISTAR")
+                .sistema_operativo("Windows Phone")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("EXE")
+                .usuario_ingresa("100001")
+                .build();
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(put("/api/devices/{id}", devCat.getId_dispositivo())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(deviceCatalogUpdate)));
+
+
+        // then - verify the output
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.agente", is(deviceCatalogUpdate.getAgente())))
+                .andExpect(jsonPath("$.operador_telefonico", is(deviceCatalogUpdate.getOperador_telefonico())))
+                .andExpect(jsonPath("$.sistema_operativo", is(deviceCatalogUpdate.getSistema_operativo())))
+                .andExpect(jsonPath("$.estado_dispositivo", is(deviceCatalogUpdate.getEstado_dispositivo())));
+    }
+    
+ // JUnit test for update employee REST API - negative scenario
+    @Test
+    public void test_update_device_catalog_not_found() throws Exception{
+    	// given - precondition or setup
+        String deviceCatalogId = "0000002";
+        
+    	DeviceCatalogRequest devCat = DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("CLARO")
+                .sistema_operativo("MAC")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("BUE")
+                .usuario_ingresa("100001")
+                .build();
+    	
+    	DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(devCat, DeviceCatalog.class);
+    	this.deviceCatalogRepository.save(devicecatalog);
+
+    	DeviceCatalogRequest deviceCatalogUpdate =  DeviceCatalogRequest.builder()
+    			.id_dispositivo("0000001")
+    			.identificador("0002221")
+    			.agente("agente 2")
+                .numero_telefono("+579999999991")
+                .operador_telefonico("MOVISTAR")
+                .sistema_operativo("Windows Phone")
+                .version_sistema("088881")
+                .modelo_dispositivo("009991")
+                .estado_dispositivo("EXE")
+                .usuario_ingresa("100001")
+                .build();
+
+        // when -  action or the behaviour that we are going test
+        ResultActions response = mockMvc.perform(put("/api/devices/{id}", deviceCatalogId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(deviceCatalogUpdate)));
+
+        // then - verify the output
+        response.andExpect(status().isNotFound())
+                .andDo(print());
     }
 }
