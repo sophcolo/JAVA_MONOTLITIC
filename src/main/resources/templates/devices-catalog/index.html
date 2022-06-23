@@ -6,31 +6,14 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://blue.baccredomatic.com/bel-main-style.css">
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <script type="text/javascript" src="https://blue.baccredomatic.com/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://blue.baccredomatic.com/js/zebra_datepicker.min.js"></script>
+    <script type="text/javascript" src="https://blue.baccredomatic.com/js/bel-main-scripts.js"></script>
     <meta name="theme-color" content="#7952b3">
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-    </style>
-
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.0/examples/offcanvas-navbar/offcanvas.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
@@ -66,10 +49,11 @@
       </div>
     </div>
   </nav>
-<div class="row" style="margin: 1% 5%;">
-    <div class="col-12">
-        <div>
-            <table class="table table-bordered">
+  <br/><br/><br/>
+<div class="bel-grid-row">
+  <div class="bel-col-12">
+    <div class="bel-card">
+      <table id="idDeTabla">
                 <thead class="bg-primary text-white">
                 <tr>
                     <th>Identificador</th>
@@ -82,25 +66,36 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="device:${devices}">
-                    <td th:text="${device.identificador}"></td>
-                    <td th:text="${device.numero_telefono}"></td>
-                    <td th:text="${device.operador_telefonico}"></td>
-                    <td th:text="${device.sistema_operativo}"></td>
-                    <td th:text="${device.version_sistema}"></td>
-                    <td th:text="${device.modelo_dispositivo}"></td>
-                    <td>
-                        <a th:href="@{/devices/edit/{code}(code=${device.id_dispositivo})}" class="btn btn-info">&#9997;</a>
-                        <a th:href="@{/devices/delete/{code}(code=${device.id_dispositivo})}" class="btn btn-danger">&#9940;</a>
-                    </td>
-                </tr>
+                  <tr th:each="device:${devices}">
+                      <td th:text="${device.identificador}"></td>
+                      <td th:text="${device.numero_telefono}"></td>
+                      <td th:text="${device.operador_telefonico}"></td>
+                      <td th:text="${device.sistema_operativo}"></td>
+                      <td th:text="${device.version_sistema}"></td>
+                      <td th:text="${device.modelo_dispositivo}"></td>
+                      <td>
+                          <a th:href="@{/devices/edit/{code}(code=${device.id_dispositivo})}" class="btn btn-info">&#9997;</a>
+                          <a th:href="@{/devices/delete/{code}(code=${device.id_dispositivo})}" class="btn btn-danger">&#9940;</a>
+                      </td>
+                  </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
-<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $BLUEJQuery( document ).ready(function() {
+    $BLUEJQuery("#idDeTabla").blueTable({
+      toggleable:false,
+      extensible:false,
+      rowHover:true,
+      maxItemsCollapsed:0, 
+      extensibleLabel: "Ver más",
+      collapseLabel: "Ver menos",
+      tdWidth:[10, 15, 15, 15, 15, 15, 15],
+      thAlign:["left", "left", "left", "center", "center", "center", "center"],
+      tdAlign:["left", "left", "left", "center", "center", "center", "center"]
+    });
+  });
+</script>
 </body>
 </html>
