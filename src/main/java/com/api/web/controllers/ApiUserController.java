@@ -32,14 +32,14 @@ public class ApiUserController {
         return userService.getById(id);
     }
 
-	/* @PostMapping(value = "/users")
+	@PostMapping(value = "/users")
     public Usuario save(@RequestBody Usuario usr) {
         //return usr;
         return userService.insert(usr);
-    }*/
+    }
     
-    @PostMapping(value = "/users")
-    public UserRequest save(@RequestBody UserRequest usr) throws ApiUnprocessableEntity {
+    @PostMapping(value = "/api/users")
+    public Usuario save(@RequestBody UserRequest usr) throws ApiUnprocessableEntity {
         return userService.save(usr);
     }
 
