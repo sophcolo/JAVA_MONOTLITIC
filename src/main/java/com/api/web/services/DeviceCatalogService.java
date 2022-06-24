@@ -28,7 +28,7 @@ public class DeviceCatalogService implements DeviceCatalogServiceInterface {
 	}
 
 	@Override
-	public DeviceCatalog insert(DeviceCatalogRequest dc) {
+	public DeviceCatalog insert(DeviceCatalogRequest dc){
 		DeviceCatalog devicecatalog = HelperMapper.modelMapper().map(dc, DeviceCatalog.class);
 		return deviceCatalogRepository.save(devicecatalog);
 	}

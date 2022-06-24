@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.api.web.dtos.UserRequest;
+import com.api.web.exceptions.ApiUnprocessableEntity;
 import com.api.web.model.Usuario;
 import com.api.web.services.UserService;
 
@@ -29,10 +32,15 @@ public class ApiUserController {
         return userService.getById(id);
     }
 
-    @PostMapping(value = "/users")
+	/* @PostMapping(value = "/users")
     public Usuario save(@RequestBody Usuario usr) {
         //return usr;
         return userService.insert(usr);
+    }*/
+    
+    @PostMapping(value = "/users")
+    public UserRequest save(@RequestBody UserRequest usr) throws ApiUnprocessableEntity {
+        return userService.save(usr);
     }
 
     @PutMapping(value = "/users/{id}")

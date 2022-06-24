@@ -4,15 +4,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.api.web.repositories.UserRepository;
+import com.api.web.requests.users.UserValidator;
+import com.api.web.dtos.UserRequest;
+import com.api.web.exceptions.ApiUnprocessableEntity;
 import com.api.web.interfaces.UserServiceInterface;
 import com.api.web.model.Usuario;
-
+import com.api.web.helpers.HelperMapper;
 
 @Service
 public class UserService implements UserServiceInterface{
 	
 	@Autowired
     private UserRepository userRepository;
+	
+	@Autowired
+	private UserValidator userValidator;
 	
 	@Override
 	public List<Usuario> all() {
@@ -27,6 +33,13 @@ public class UserService implements UserServiceInterface{
 	@Override
 	public Usuario insert(Usuario usr) {
 		return userRepository.save(usr);
+	}
+	
+	public UserRequest save(UserRequest usr) throws ApiUnprocessableEntity {
+		this.userValidator.validatorRequest(usr);
+		//Usuario user = HelperMapper.modelMapper().map(usr, Usuario.class);
+		//return userRepository.save(user);
+		return usr;
 	}
 
 	@Override
