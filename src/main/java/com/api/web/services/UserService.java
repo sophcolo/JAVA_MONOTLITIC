@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.api.web.repositories.UserRepository;
 import com.api.web.requests.users.UserValidator;
+
+import lombok.var;
+
 import com.api.web.dtos.UserRequest;
+import com.api.web.exceptions.ApiNotFound;
 import com.api.web.exceptions.ApiUnprocessableEntity;
 import com.api.web.helpers.HelperMapper;
 import com.api.web.interfaces.UserServiceInterface;
@@ -26,8 +30,12 @@ public class UserService implements UserServiceInterface{
 	}
 
 	@Override
-	public Usuario getById(String code) {
-		return userRepository.findById(code).get();
+	public Usuario getById(String code) throws ApiNotFound {
+		var dc = userRepository.findById(code);
+		if(!dc.isPresent() ) {
+			throw new ApiNotFound("Not Exists This User");
+		}
+		return dc.get();
 	}
 
 	@Override
@@ -42,20 +50,19 @@ public class UserService implements UserServiceInterface{
 	}
 
 	@Override
-	public Usuario udpate(String code, Usuario user) {
-		Usuario user_exists = userRepository.findById(code).get();
-		/*user_exists.setNam(user.getNam());
-		user_exists.setCtr(user.getCtr());
-		user_exists.setEnt(user.getEnt());
-		user_exists.setTen(user.getTen());
-		user_exists.setPem(user.getPem());
-		user_exists.setIdi(user.getIdi());
-		user_exists.setIdt(user.getIdt());*/
+	public Usuario udpate(String code, UserRequest user) throws ApiUnprocessableEntity, ApiNotFound {
+		this.userValidator.validatorRequest(user);
+		Usuario user_exists = this.getById(code);
+		HelperMapper.modelMapper().map(user, user_exists);
 		return userRepository.save(user_exists);
 	}
 
 	@Override
-	public void delete(String code) {
+	public void delete(String code) throws ApiNotFound {
+		var dc = userRepository.findById(code);
+		if(!dc.isPresent() ) {
+			throw new ApiNotFound("Not Exists This User");
+		}
 		userRepository.deleteById(code);
 	}
 

@@ -38,21 +38,21 @@ public class UserController {
 	
 	@GetMapping({"/users/edit/{code}"})
 	public String edit(@PathVariable String code,Model model) {
-		model.addAttribute("user", userService.getById(code));
+		/*model.addAttribute("user", userService.getById(code));
 		model.addAttribute("countries",Countries.values());
-		model.addAttribute("securitylevels",SecurityLevels.values());
+		model.addAttribute("securitylevels",SecurityLevels.values());*/
 		return "users/edit";
 	}
 	
 	@PostMapping({"/users/update/{code}"})
 	public String update(@PathVariable String code,@ModelAttribute("user") Usuario user) {
-		userService.udpate(code, user);
+		//userService.udpate(code, user);
 		return "redirect:/";
 	}
 	
 	@GetMapping({"/users/delete/{code}"})
 	public String delete(@PathVariable String code) {
-		userService.delete(code);
+		//userService.delete(code);
 		return "redirect:/";
 	}
 }
