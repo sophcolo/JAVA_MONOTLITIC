@@ -6,7 +6,7 @@ import com.api.web.exceptions.ApiUnprocessableEntity;
 
 
 @Component
-public class UserValidator implements EntityValidatorInterface{
+public class UserValidator implements EntityValidatorInterface<UserRequest>{
 	
 	@Override
 	public void validatorRequest(UserRequest request ) throws ApiUnprocessableEntity {

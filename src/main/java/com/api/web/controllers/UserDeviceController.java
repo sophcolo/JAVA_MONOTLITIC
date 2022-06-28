@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.api.web.services.UserDeviceService;
 import com.api.web.services.UserService;
 import com.api.web.services.DeviceCatalogService;
+import com.api.web.exceptions.ApiNotFound;
 import com.api.web.model.UserDevice;
 
 @Controller
@@ -45,7 +46,7 @@ public class UserDeviceController {
 		}
 		
 		@GetMapping({"/userdevices/edit/{id}"})
-		public String edit(@PathVariable Integer id,Model model) {
+		public String edit(@PathVariable Integer id,Model model) throws ApiNotFound {
 			model.addAttribute("userdevice", userDeviceService.getById(id));
 			model.addAttribute("users",userService.all());
 			model.addAttribute("devices",dcService.all());
@@ -54,12 +55,12 @@ public class UserDeviceController {
 		
 		@PostMapping({"/userdevices/update/{id}"})
 		public String update(@PathVariable Integer id,@ModelAttribute("device") UserDevice dc) {
-			userDeviceService.udpate(id, dc);
+			//userDeviceService.udpate(id, dc);
 			return "redirect:/userdevices";
 		}
 		
 		@GetMapping({"/userdevices/delete/{device_id}"})
-		public String delete(@PathVariable Integer device_id) {
+		public String delete(@PathVariable Integer device_id) throws ApiNotFound {
 			userDeviceService.delete(device_id);
 			return "redirect:/userdevices";
 		}

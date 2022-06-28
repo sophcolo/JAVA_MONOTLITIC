@@ -23,26 +23,27 @@ public class UserService implements UserServiceInterface{
 	
 	@Autowired
 	private UserValidator userValidator;
-	
+
 	@Override
 	public List<Usuario> all() {
 		return userRepository.findAll();
 	}
 
 	@Override
-	public Usuario getById(String code) throws ApiNotFound {
-		var dc = userRepository.findById(code);
+	public Usuario getById(String paramKey) throws ApiNotFound {
+		var dc = userRepository.findById(paramKey);
 		if(!dc.isPresent() ) {
 			throw new ApiNotFound("Not Exists This User");
 		}
 		return dc.get();
 	}
-
+	
 	@Override
-	public Usuario insert(Usuario usr) {
+	public Usuario insert(Usuario usr){
 		return userRepository.save(usr);
 	}
 	
+	@Override	
 	public Usuario save(UserRequest usr) throws ApiUnprocessableEntity {
 		this.userValidator.validatorRequest(usr);
 		Usuario user = HelperMapper.modelMapper().map(usr, Usuario.class);
@@ -50,10 +51,10 @@ public class UserService implements UserServiceInterface{
 	}
 
 	@Override
-	public Usuario udpate(String code, UserRequest user) throws ApiUnprocessableEntity, ApiNotFound {
-		this.userValidator.validatorRequest(user);
-		Usuario user_exists = this.getById(code);
-		HelperMapper.modelMapper().map(user, user_exists);
+	public Usuario udpate(String paramKey, UserRequest usr) throws ApiUnprocessableEntity, ApiNotFound {
+		this.userValidator.validatorRequest(usr);
+		Usuario user_exists = this.getById(paramKey);
+		HelperMapper.modelMapper().map(usr, user_exists);
 		return userRepository.save(user_exists);
 	}
 
@@ -65,5 +66,4 @@ public class UserService implements UserServiceInterface{
 		}
 		userRepository.deleteById(code);
 	}
-
 }

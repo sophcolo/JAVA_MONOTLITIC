@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.web.dtos.UserDeviceRequest;
+import com.api.web.exceptions.ApiNotFound;
+import com.api.web.exceptions.ApiUnprocessableEntity;
 import com.api.web.model.UserDevice;
 import com.api.web.services.UserDeviceService;
 
@@ -25,22 +28,28 @@ public class ApiUserDeviceController {
     }
 
 	@GetMapping(value = "/api/userdevices/{id}")
-    public UserDevice getById(@PathVariable Integer id) {
+    public UserDevice getById(@PathVariable Integer id) throws ApiNotFound {
         return userDeviceService.getById(id);
     }
 
     @PostMapping(value = "/api/userdevices")
-    public UserDevice save(@RequestBody UserDevice ud) {
+    public UserDevice save(@RequestBody UserDeviceRequest ud) throws ApiUnprocessableEntity, ApiNotFound {
+        return userDeviceService.save(ud);
+    	//return ud;
+    }
+    
+    @PostMapping(value = "/api/userdevicesone")
+    public UserDevice insert(@RequestBody UserDevice ud) {
         return userDeviceService.insert(ud);
     }
 
     @PutMapping(value = "/api/userdevices/{id}")
-    public UserDevice update(@PathVariable Integer id, @RequestBody UserDevice usr) {
+    public UserDevice update(@PathVariable Integer id, @RequestBody UserDeviceRequest usr) throws ApiUnprocessableEntity, ApiNotFound {
         return userDeviceService.udpate(id, usr);
     }
 
     @DeleteMapping(value = "/api/userdevices/{id}")
-    public String delete(@PathVariable Integer id) {
+    public String delete(@PathVariable Integer id) throws ApiNotFound {
     	userDeviceService.delete(id);
         return "User con Código: " + id + " fue borrado satisfactoriamente";
     }

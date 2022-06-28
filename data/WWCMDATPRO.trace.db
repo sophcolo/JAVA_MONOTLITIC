@@ -1,0 +1,4 @@
+2022-06-27 19:20:18 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * [*]WWA_USUARIO_DISPOSITIVO"
+Syntax error in SQL statement "SELECT * [*]WWA_USUARIO_DISPOSITIVO"; SQL statement:
+SELECT * WWA_USUARIO_DISPOSITIVO [42000-212]
