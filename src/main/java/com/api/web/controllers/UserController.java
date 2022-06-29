@@ -1,6 +1,8 @@
 package com.api.web.controllers;
 import com.api.web.enums.Countries;
 import com.api.web.enums.SecurityLevels;
+import com.api.web.exceptions.ApiNotFound;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -51,8 +53,8 @@ public class UserController {
 	}
 	
 	@GetMapping({"/users/delete/{code}"})
-	public String delete(@PathVariable String code) {
-		//userService.delete(code);
+	public String delete(@PathVariable String code) throws ApiNotFound {
+		userService.delete(code);
 		return "redirect:/";
 	}
 }
